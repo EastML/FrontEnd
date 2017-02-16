@@ -1,0 +1,51 @@
+
+function checkCashRegister(price, cash, cid) {
+  price *= 100;
+  cash *= 100;
+  var currency = [10000, 2000, 1000, 500, 100, 25, 10, 5, 1];
+  var currCount = 0;
+  var register = {
+    till: cid.reverse(),
+    total: 0,
+    change: cash - price,
+    toCust: []
+  };
+  
+  
+  // Floating Decimal, Register Total, Change Set
+  for (var i = 0; i < cid.length; i++) {
+    register.till[i][1] = Math.ceil(register.till[i][1] * 100);
+    register.total += register.till[i][1];
+    register.toCust.push([register.till[i][0], 0]);
+  }
+  
+  // Checks if total change = register total
+  if (register.change == register.total) {
+    return "Closed";
+  }
+  
+  // Gives total change
+  while (register.change > 0) {
+    
+    if(currCount == 9) {
+      return "Insufficient Funds";
+    }
+    
+    if (register.change >= currency[currCount] && register.till[currCount][1] > 0) {
+      register.toCust[currCount][1] += currency[currCount];
+      register.till[currCount][1] -= currency[currCount];
+      register.change -= currency[currCount];
+    } else {
+      currCount++;
+    }
+  }
+  
+  register.toCust = register.toCust.filter(function(val) {
+    val[1] = val[1] / 100;
+    return val[1] > 0;
+  });
+  
+  return register.toCust;
+}
+
+checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
