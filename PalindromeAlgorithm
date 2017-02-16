@@ -1,0 +1,14 @@
+function palindrome(str) {
+  // Good luck!
+  var small = str.toLowerCase().replace(/[^a-z0-9]/g,"");
+  var cut = small .split("").reverse();
+  var bandage = cut.join("");
+  
+  if (small === bandage) {
+    return true;
+  } else{
+    return false;
+  }
+}
+
+palindrome("eye");
