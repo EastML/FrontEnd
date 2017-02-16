@@ -1,0 +1,57 @@
+function makeFriendlyDates(arr) {
+  
+  var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var day = ["st", "nd", "rd", "th"];
+  
+  var start = arr[0].split("-");
+  var end = arr[1].split("-");
+  
+  var outCheck = arr[1].split("-").join("") - arr[0].split("-").join("");
+  var hold = [];
+  
+  function dateSuf(val) {
+    if (parseInt(val) > 3 ) {
+      val = parseInt(val) + day[3];
+    } else {
+      for (var i = 0; i < day.length - 1; i++) {
+        if ((i + 1) == parseInt(val)) {
+          val = parseInt(val) + day[i];
+        }
+      }
+    }
+    return val;
+  }
+  
+  switch (true) {
+    case (outCheck === 0):
+      hold.push(month[start[1] - 1] + " " + dateSuf(start[2]) + ", " + start[0]);
+      break;
+    case (outCheck < 31):
+      hold.push(month[start[1] - 1] + " " + dateSuf(start[2]),
+               dateSuf(end[2]));
+      break;
+    case (outCheck < 10000):
+      if (start[0] === start[0]) {
+        hold.push(month[start[1] - 1] + " " + dateSuf(start[2]) + ", " + start[0],
+                 month[end[1] - 1] + " " + dateSuf(end[2]));
+      }
+      
+      if (start[0] == 2016) {
+        hold[0] = hold[0].slice(0, -6);
+      }
+      break;
+    default:
+      hold.push(month[start[1] - 1] + " " + dateSuf(start[2]) + ", " + start[0],
+               month[end[1] - 1] + " " + dateSuf(end[2]) + ", " + end[0]);
+      
+      if (start[0] == 2016 && end[0] == 2016) {
+         hold[0] = hold[0].slice(0, -6);
+      }
+      break;
+  }
+  
+  
+  return hold;
+}
+
+makeFriendlyDates(["2017-03-01", "2017-05-05"]) ;
