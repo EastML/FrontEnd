@@ -1,0 +1,41 @@
+
+function permAlone(str) {
+  
+  str = str.split("");
+  var hold = [];
+  var count = 0;
+  var re = /(\w)\1/g;
+  
+  function swap(arr, a, b) {
+    var tmp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = tmp;
+  }
+  
+  function permute(num, arr) {
+    if (num === 1) {
+      hold.push(arr.join(""));
+    } 
+      for (var i = 0; i < num; i++) {
+        permute(num - 1, arr);
+        
+        if (num % 2 === 0) {
+          swap(arr, i, num - 1);
+        } else {
+          swap(arr, 0, num - 1);
+        }
+      }
+  }
+  
+  permute(str.length, str);
+  
+  hold.filter(function(val) {
+    if(val.match(re) === null) {
+      count++;
+    }
+  });
+  
+  return count;
+}
+
+permAlone('aab');
