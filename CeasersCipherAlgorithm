@@ -1,0 +1,26 @@
+
+function rot13(str) {
+  var cut = str.split("");
+  var output = [];
+  
+  function change(val) {
+    if (cut[i].charCodeAt(val) >= 77) {
+      return String.fromCharCode(val -= 13);
+    } else {
+      return String.fromCharCode(val += 13);
+    }
+  }
+  
+  function numberify(val) {
+    var num1 = cut[i].charCodeAt(val);
+    if (num1 > 77) {
+      return String.fromCharCode(num1 - 13);
+    } else {
+      return String.fromCharCode(num1 + 13);
+    }
+    
+  }
+  
+  for (var i = 0; i < cut.length; i++) {
+    for (var j = 0; j < cut[i].length; j++) {
+      output.push(cut[i][j].replace(/[A-Z]/g, numberify(j)));
