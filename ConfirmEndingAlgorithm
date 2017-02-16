@@ -1,0 +1,10 @@
+function confirmEnding (str, target) {
+  var strEnd = str.substring(str.length - target.length);
+  if (strEnd === target) {
+    return true; 
+  } else {
+    return false;
+  }
+}
+
+confirmEnding("icecream", "eam");
