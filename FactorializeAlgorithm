@@ -1,0 +1,12 @@
+function factorialize(num) {
+  var holder =[];
+  for (var i = 1; i <= num; i++) {
+    holder.push(i);
+  }
+  var holder = holder.reduce(function(a,b) {
+    return a * b;
+  },1);
+  return holder;
+}
+
+factorialize(5);
