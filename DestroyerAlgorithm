@@ -1,0 +1,16 @@
+function destroyer(arr) {
+  var destroy = arr.slice.call(arguments,1);
+  
+  var seek = arr.filter(function(val) {
+    for (var i = 0; i < destroy.length; i++) {
+      if (destroy[i] == val) {
+        return false; 
+      }
+    }
+    return true;
+  });
+
+  return seek;
+}
+
+destroyer([1, 2, 3, 1, 2, 3], 2, 3);
